@@ -1,0 +1,49 @@
+{
+  "name": "calendar",
+  "version": "1.0.0",
+  "description": "A calendar inspired by the Apple Calendar with a few tweaks to improve user experience.",
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JasonHong1998/calendar.git"
+  },
+  "author": "Jason",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JasonHong1998/calendar/issues"
+  },
+  "homepage": "https://github.com/JasonHong1998/calendar#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "chai": "^4.2.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "styled-components": "^5.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "mocha": "^8.2.1",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0"
+  }
+}
