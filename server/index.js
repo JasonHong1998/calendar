@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const compression = require('compression');
+const pool = require('../database/index.js');
 
 const app = express();
 const port = 3000;
@@ -23,4 +24,35 @@ app.use(compression());
 // serve up static files in dist folder
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.listen(port, () => console.log(`currently listening on localhost:${port}`));
+// wrapper function for all of our route handlers
+const asyncMiddleware = (fn) => (req, res, next) => {
+  Promise.resolve(fn(req, res, next))
+    .catch(next);
+};
+
+app.get('/', asyncMiddleware(async (req, res, next) => {
+  const { search } = req.query;
+  const text = 'SELECT item FROM searches WHERE lower(item) LIKE lower($1) LIMIT 12';
+  const values = [`${search}%`];
+  const newSearch = await pool.query(text, values);
+  res.json(newSearch.rows);
+}));
+
+// Invalid endpoint error handler
+app.use((req, res, next) => {
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
+
+// Custom error handler
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).send({
+    error: {
+      status: err.status || 500,
+      message: err.message || 'Internal Server Error',
+    },
+  });
+});
+
+app.listen(port);
