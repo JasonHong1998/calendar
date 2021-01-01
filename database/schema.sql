@@ -4,17 +4,12 @@ CREATE DATABASE calendar;
 
 \c calendar;
 
-CREATE TABLE users (
-  id int auto_increment primary key not null,
-  name varchar(255) not null,
-  age int not null
-);
+--to import the uuid_generate_v4() method
+create extension if not exists "uuid-ossp";
 
-CREATE TABLE events {
-  id int auto_increment primary key not null,
-  order_date date not null,
-  salesperson_id int not null,
-  amount int not null,
-  FOREIGN KEY (salesperson_id)
-    REFERENCES Salesperson(id)
-}
+CREATE TABLE users (
+  user_id uuid primary key default
+  uuid_generate_v4(),
+  user_email varchar(255) not null unique,
+  user_password varchar(255) not null
+);

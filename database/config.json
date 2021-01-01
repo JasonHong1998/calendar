@@ -2,6 +2,6 @@
   "host": "localhost",
   "user": "Jason",
   "pw": "hjkl1240",
-  "db": "navbardb",
-  "port": "5432"
+  "db": "calendar",
+  "port": 5432
 }
