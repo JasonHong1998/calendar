@@ -30,7 +30,7 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use(['/auth/register', '/auth/login'], validateInfo);
-app.use('/auth/verify', authorize);
+app.use(['/auth/verify', '/dashboard'], authorize);
 
 app.post('/auth/register', asyncMiddleware(async (req, res, next) => {
   const { email, password } = req.body;
@@ -66,7 +66,12 @@ app.post('/auth/login', asyncMiddleware(async (req, res, next) => {
 }));
 
 app.get('/auth/verify', asyncMiddleware(async (req, res, next) => {
-  res.status(200).json(true);
+  res.json(true);
+}));
+
+app.get('/dashboard', asyncMiddleware(async (req, res, next) => {
+  const user = await pool.query('SELECT user_email FROM users WHERE user_id = $1', [req.user]);
+  res.json(user.rows[0]);
 }));
 
 // Invalid endpoint error handler
