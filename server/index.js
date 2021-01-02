@@ -30,6 +30,7 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use(['/auth/register', '/auth/login'], validateInfo);
+app.use('/auth/verify', authorize);
 
 app.post('/auth/register', asyncMiddleware(async (req, res, next) => {
   const { email, password } = req.body;
@@ -64,9 +65,9 @@ app.post('/auth/login', asyncMiddleware(async (req, res, next) => {
   return res.json({ token });
 }));
 
-app.post('/auth/verify', authorize, (req, res, next) => {
-  res.json(true);
-});
+app.get('/auth/verify', asyncMiddleware(async (req, res, next) => {
+  res.status(200).json(true);
+}));
 
 // Invalid endpoint error handler
 app.use((req, res, next) => {
