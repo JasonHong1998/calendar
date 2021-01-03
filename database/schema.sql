@@ -13,3 +13,21 @@ CREATE TABLE users (
   user_email varchar(255) not null unique,
   user_password varchar(255) not null
 );
+
+CREATE TABLE events (
+  id
+  name
+  all day (boolean)
+  start time (date)
+  end time (date)
+  interval
+  interval_end
+  alert
+  tag
+);
+
+CREATE TABLE todo (
+  item
+  completion
+  date
+);
