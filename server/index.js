@@ -83,7 +83,7 @@ app.post('/api/auth/login', asyncMiddleware(async (req, res, next) => {
     return res.status(401).json('Incorrect email or password');
   }
   const token = jwtGenerator(user.rows[0].id);
-  return res.json({ token });
+  return res.cookie('token', token, { httpOnly: true }).sendStatus(200);
 }));
 
 app.get('/api/auth/verify', asyncMiddleware(async (req, res, next) => {
