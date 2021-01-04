@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const jwtGenerator = (user_id) => {
+const jwtGenerator = (id) => {
   const payload = {
-    user: user_id,
+    user: id,
   };
 
   return jwt.sign(payload, process.env.jwtSecret, { expiresIn: '1h' });

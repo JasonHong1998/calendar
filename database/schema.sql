@@ -8,26 +8,28 @@ CREATE DATABASE calendar;
 create extension if not exists "uuid-ossp";
 
 CREATE TABLE users (
-  user_id uuid primary key default
-  uuid_generate_v4(),
-  user_email varchar(255) not null unique,
-  user_password varchar(255) not null
+  id uuid primary key default uuid_generate_v4(),
+  email varchar(255) not null unique,
+  password varchar(60) not null
+);
+
+CREATE TABLE tags (
+  id serial primary key,
+  name varchar(255) not null,
+  color varchar(255) not null
 );
 
 CREATE TABLE events (
-  id
-  name
-  all day (boolean)
-  start time (date)
-  end time (date)
-  interval
-  interval_end
-  alert
-  tag
+  user_email varchar(255) references users(email),
+  tag_id integer references tags(id),
+  name varchar(255) not null,
+  all_day boolean not null,
+  start_time timestamptz not null,
+  end_time timestamptz not null
 );
 
-CREATE TABLE todo (
-  item
-  completion
-  date
+CREATE TABLE todos (
+  day date not null,
+  item varchar(255) not null,
+  completion boolean not null
 );
