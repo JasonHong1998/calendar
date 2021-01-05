@@ -11,7 +11,7 @@ const authorize = (req, res, next) => {
     return res.status(403).json({ message: 'Authorization denied' });
   }
 
-  // Check if the token is valid. It is going to give use the user id ({ user: user.id} )
+  // Check if the token is valid. It is going to give the user id ( { user: user.id} )
   const verify = jwt.verify(token, process.env.jwtSecret);
 
   req.user = verify.user;

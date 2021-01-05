@@ -20,15 +20,17 @@ CREATE TABLE tags (
 );
 
 CREATE TABLE events (
+  id serial primary key,
   user_email varchar(255) references users(email),
-  tag_id integer references tags(id),
   name varchar(255) not null,
-  all_day boolean not null,
+  tag_id integer references tags(id),
   start_time timestamptz not null,
   end_time timestamptz not null
 );
 
 CREATE TABLE todos (
+  id serial primary key,
+  user_email varchar(255) references users(email),
   day date not null,
   item varchar(255) not null,
   completion boolean not null
