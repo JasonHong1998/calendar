@@ -39,7 +39,7 @@ app.use(morgan('dev'));
 // serve up static files in dist folder
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.use(['/api/auth/verify'], authorize);
+app.use(['/api/auth/verify', /events/, /todos/], authorize);
 
 app.use('/api/auth', authRoute);
 app.use('/api/todos', eventsRoute);

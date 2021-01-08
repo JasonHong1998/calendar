@@ -14,13 +14,13 @@ CREATE TABLE users (
 );
 
 CREATE TABLE tags (
-  id serial primary key,
+  id uuid primary key default uuid_generate_v4(),
   name varchar(255) not null,
   color varchar(255) not null
 );
 
 CREATE TABLE events (
-  id serial primary key,
+  id uuid primary key default uuid_generate_v4(),
   user_email varchar(255) references users(email),
   name varchar(255) not null,
   tag_id integer references tags(id),
@@ -29,7 +29,7 @@ CREATE TABLE events (
 );
 
 CREATE TABLE todos (
-  id serial primary key,
+  id uuid primary key default uuid_generate_v4(),
   user_email varchar(255) references users(email),
   day date not null,
   item varchar(255) not null,

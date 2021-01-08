@@ -16,16 +16,21 @@ router
     const events = await pool.query('INSERT INTO events (user_email, name, tag_id, start_time, end_time) VALUES ($1, $2, $3, $4, $5)', [userEmail, name, tagId, startTime, endTime]);
     res.status(200).json(events.rows);
   }))
+
+router
+  .route('/:id')
   .put(asyncMiddleware(async (req, res, next) => {
+    const { id } = req.params;
     const {
-      userEmail, name, tagId, startTime, endTime, id,
+      userEmail, name, tagId, startTime, endTime,
     } = req.body;
-    const events = await pool.query('UPDATE events SET user_email = $1, name = $2, tag_id = $3, start_time = $4, end_time = $5 WHERE id = $6', [userEmail, name, tagId, startTime, endTime, id]);
+    const events = await pool.query('UPDATE events SET user_email = $1, name = $2, tag_id = $3, start_time = $4, end_time = $5 WHERE id = $6 AND user_email = $7', [userEmail, name, tagId, startTime, endTime, id, userEmail]);
     res.status(200).json(events.rows);
   }))
   .delete(asyncMiddleware(async (req, res, next) => {
-    const { id } = req.body;
-    const events = await pool.query('DELETE FROM events WHERE id = $1', [id]);
+    const { id } = req.params;
+    const { userEmail } = req.body;
+    const events = await pool.query('DELETE FROM events WHERE id = $1 and user_email = $2', [id, userEmail]);
     res.status(200).json(events.rows);
   }));
 

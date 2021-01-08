@@ -24,6 +24,10 @@
   },
   "homepage": "https://github.com/JasonHong1998/calendar#readme",
   "dependencies": {
+    "@fullcalendar/daygrid": "^5.5.0",
+    "@fullcalendar/interaction": "^5.5.0",
+    "@fullcalendar/react": "^5.5.0",
+    "@fullcalendar/timegrid": "^5.5.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "chai": "^4.2.0",
@@ -32,6 +36,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "formik": "^2.2.6",
     "helmet": "^4.3.1",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^8.5.1",
@@ -40,8 +45,13 @@
     "pg": "^8.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.1",
-    "validator": "^13.5.2"
+    "validator": "^13.5.2",
+    "yup": "^0.32.8"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
