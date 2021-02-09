@@ -1,49 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import NavItem from './NavItem/NavItem.jsx';
 
-import NavItem from './NavItem';
-
-const Nav = styled.nav`
+const StyledNav = styled.nav`
   display: flex;
-  margin-top: ${(props) => (props.mobile ? '-6rem' : null)};
 `;
 
-const Ul = styled.ul`
+const StyledUl = styled.ul`
   display: flex;
   flex-direction: ${(props) => (props.mobile ? 'column' : 'row')};
   align-items: center;
   height: 100%;
 `;
 
-const NavItems = ({ mobile, clicked, loggedIn }) => {
-  let links;
-  if (loggedIn.uid) {
-    links = (
-      <Ul mobile={mobile}>
-        <NavItem mobile={mobile} clicked={clicked} link="/">
-          Todos
-        </NavItem>
-        <NavItem mobile={mobile} clicked={clicked} link="/profile">
-          Account
-        </NavItem>
-        <NavItem mobile={mobile} clicked={clicked} link="/logout">
-          Logout
-        </NavItem>
-      </Ul>
-    );
-  } else {
-    links = (
-      <Ul mobile={mobile}>
-        <NavItem mobile={mobile} clicked={clicked} link="/login">
-          Login
-        </NavItem>
-        <NavItem mobile={mobile} clicked={clicked} link="/signup">
-          Signup
-        </NavItem>
-      </Ul>
-    );
-  }
-  return <Nav mobile={mobile}>{links}</Nav>;
-};
+const NavItems = ({ mobile, clicked }) => (
+  <StyledNav>
+    <StyledUl mobile={mobile}>
+      <NavItem clicked={clicked} mobile={mobile} link="/">HOME</NavItem>
+      <NavItem clicked={clicked} mobile={mobile} link="/calendar">ABOUT</NavItem>
+    </StyledUl>
+  </StyledNav>
+);
 
 export default NavItems;
