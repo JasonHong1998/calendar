@@ -17,7 +17,7 @@ const NavItems = ({ mobile, clicked }) => (
   <StyledNav>
     <StyledUl mobile={mobile}>
       <NavItem clicked={clicked} mobile={mobile} link="/">HOME</NavItem>
-      <NavItem clicked={clicked} mobile={mobile} link="/calendar">ABOUT</NavItem>
+      <NavItem clicked={clicked} mobile={mobile} link="/calendar">CALENDAR</NavItem>
     </StyledUl>
   </StyledNav>
 );

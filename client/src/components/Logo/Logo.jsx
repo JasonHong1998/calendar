@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const LogoWrapper = styled.div`
   padding: 1rem;
   color: var(--color-white);
-  font-size: 1.2rem;
+  font-size: 3rem;
   height: 100%;
   display: flex;
   align-items: center;

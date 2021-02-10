@@ -34,7 +34,7 @@ export default createGlobalStyle`
     }
   }
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-weight: 400;
     line-height: 1.6;
   }

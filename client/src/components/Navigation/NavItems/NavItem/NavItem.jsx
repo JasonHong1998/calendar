@@ -10,9 +10,10 @@ const StyledLi = styled.li`
 const StyledNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
+  border-bottom: 2px solid transparent;
   font-size: 1.2rem;
   padding: ${(props) => (props.mobile ? '0.5rem 1rem' : '1rem')};
-  margin: ${(props) => (props.mobile ? '2rem 0' : '0 1rem')};
+  margin: ${(props) => (props.mobile ? '1rem 0' : '0 1rem')};
   font-weight: 400;
   color: var(--color-white);
   transition: all 0.2s;

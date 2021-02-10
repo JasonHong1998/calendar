@@ -7,8 +7,8 @@ import Calendar from './containers/Calendar/Calendar.jsx';
 const App = () => (
   <Layout>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/calendar" component={Calendar} />
+      <Route path="/" exact component={Home} />
+      <Route path="/calendar" component={Calendar} />
       <Redirect to="/" />
     </Switch>
   </Layout>
