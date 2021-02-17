@@ -6,7 +6,7 @@ const jwtGenerator = require('../jwtGenerator.js');
 const pool = require('../../database/index.js');
 
 router
-  .route('/register')
+  .route('/signup')
   .post(asyncMiddleware(async (req, res, next) => {
     const { email, password } = req.body;
 
@@ -29,7 +29,7 @@ router
   }));
 
 router
-  .route('/login')
+  .route('/signin')
   .post(asyncMiddleware(async (req, res, next) => {
     const { email, password } = req.body;
 
@@ -56,6 +56,12 @@ router
   .route('/verify')
   .get(asyncMiddleware(async (req, res, next) => {
     res.sendStatus(200);
+  }));
+
+router
+  .route('/signout')
+  .get(asyncMiddleware(async (req, res, next) => {
+    res.cookie('token', { httpOnly: true }).sendStatus(200);
   }));
 
 module.exports = router;

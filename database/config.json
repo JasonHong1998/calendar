@@ -1,7 +1,0 @@
-{
-  "host": "localhost",
-  "user": "Jason",
-  "pw": "hjkl1240",
-  "db": "calendar",
-  "port": 5432
-}

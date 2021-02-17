@@ -23,7 +23,7 @@ CREATE TABLE events (
   id uuid primary key default uuid_generate_v4(),
   user_email varchar(255) references users(email),
   name varchar(255) not null,
-  tag_id integer references tags(id),
+  tag_id uuid references tags(id),
   start_time timestamptz not null,
   end_time timestamptz not null
 );

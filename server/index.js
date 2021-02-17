@@ -6,13 +6,14 @@ const helmet = require('helmet');
 const hpp = require('hpp');
 const morgan = require('morgan');
 const path = require('path');
+require('custom-env').env();
 const authorize = require('./middleware/authorize.js');
 const authRoute = require('./routes/auth.js');
 const eventsRoute = require('./routes/events.js');
 const todoRoute = require('./routes/todo.js');
 
 const app = express();
-const port = 3000;
+const port = process.env.NODE_PORT;
 
 // read the bodies of the incoming JSON object
 app.use(express.json());

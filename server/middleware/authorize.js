@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+require('custom-env').env();
 
 // Continue if the token is inside local storage
 const authorize = (req, res, next) => {
@@ -12,7 +12,7 @@ const authorize = (req, res, next) => {
   }
 
   // Check if the token is valid. It is going to give the user id ( { user: user.id} )
-  const verify = jwt.verify(token, process.env.jwtSecret);
+  const verify = jwt.verify(token, process.env.JWT_SECRET);
 
   req.user = verify.user;
   next();

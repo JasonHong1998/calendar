@@ -13,13 +13,30 @@ const StyledUl = styled.ul`
   height: 100%;
 `;
 
-const NavItems = ({ mobile, clicked }) => (
-  <StyledNav>
-    <StyledUl mobile={mobile}>
-      <NavItem clicked={clicked} mobile={mobile} link="/">HOME</NavItem>
-      <NavItem clicked={clicked} mobile={mobile} link="/calendar">CALENDAR</NavItem>
-    </StyledUl>
-  </StyledNav>
-);
+const NavItems = ({ mobile, clicked, loggedIn }) => {
+  let links;
+  if (loggedIn) {
+    links = (
+      <StyledUl mobile={mobile}>
+        <NavItem clicked={clicked} mobile={mobile} link="/">HOME</NavItem>
+        <NavItem clicked={clicked} mobile={mobile} link="/calendar">CALENDAR</NavItem>
+        <NavItem clicked={clicked} mobile={mobile} link="/signout">SIGN OUT</NavItem>
+      </StyledUl>
+    );
+  } else {
+    links = (
+      <StyledUl mobile={mobile}>
+        <NavItem clicked={clicked} mobile={mobile} link="/">HOME</NavItem>
+        <NavItem clicked={clicked} mobile={mobile} link="/calendar">CALENDAR</NavItem>
+        <NavItem clicked={clicked} mobile={mobile} link="/signin">SIGN IN</NavItem>
+        <NavItem clicked={clicked} mobile={mobile} link="/signup">SIGN UP</NavItem>
+      </StyledUl>
+    );
+  }
+
+  return (
+    <StyledNav>{links}</StyledNav>
+  );
+};
 
 export default NavItems;

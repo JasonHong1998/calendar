@@ -1,0 +1,45 @@
+.fc {
+  height: 100%;
+  background-color: #f7f5ef;
+}
+
+.fc .fc-toolbar-title {
+  color: #b6694a;
+  font-size: 2.5rem !important;
+}
+
+.fc .fc-toolbar {
+  justify-content: space-around !important;
+}
+
+.fc .fc-toolbar-chunk {
+  width: 30%;
+}
+
+.fc .fc-toolbar-chunk:nth-child(1) {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.fc .fc-toolbar-chunk:nth-child(2) {
+  display: flex;
+  justify-content: center;
+}
+
+.fc .fc-toolbar-chunk:nth-child(3) {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fc .fc-button-primary {
+  background-color: #b6694a !important;
+  border-color: #8d533b !important;
+}
+
+.fc .fc-button-primary:focus {
+  box-shadow: none !important;
+}
+
+.fc .fc-button-active {
+  background-color: #8d533b !important;
+}
