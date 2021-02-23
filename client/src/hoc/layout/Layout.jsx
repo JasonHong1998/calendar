@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import Navbar from '../../components/Navigation/NavBar/NavBar.jsx';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer.jsx';
 
@@ -14,16 +13,12 @@ const MainContainer = styled.div`
   background-color: var(--color-mainLight);
 `;
 
-const Layout = ({ children, loggedIn }) => (
+const Layout = ({ children }) => (
   <>
-    <Navbar loggedIn={loggedIn} />
-    <SideDrawer loggedIn={loggedIn} />
+    <Navbar />
+    <SideDrawer />
     <MainContainer>{children}</MainContainer>
   </>
 );
 
-const mapStateToProps = ({ auth }) => ({
-  loggedIn: auth.error === false ? true : null,
-});
-
-export default connect(mapStateToProps)(Layout);
+export default Layout;

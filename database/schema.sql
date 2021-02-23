@@ -13,24 +13,19 @@ CREATE TABLE users (
   password varchar(60) not null
 );
 
-CREATE TABLE tags (
-  id uuid primary key default uuid_generate_v4(),
-  name varchar(255) not null,
-  color varchar(255) not null
-);
-
 CREATE TABLE events (
   id uuid primary key default uuid_generate_v4(),
-  user_email varchar(255) references users(email),
+  user_id uuid references users(id),
   name varchar(255) not null,
-  tag_id uuid references tags(id),
+  calendar varchar(255) not null,
+  color varchar(255) not null,
   start_time timestamptz not null,
   end_time timestamptz not null
 );
 
 CREATE TABLE todos (
   id uuid primary key default uuid_generate_v4(),
-  user_email varchar(255) references users(email),
+  user_id uuid references users(id),
   day date not null,
   item varchar(255) not null,
   completion boolean not null

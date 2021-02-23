@@ -14,18 +14,16 @@ const App = ({ loggedIn }) => {
     routes = (
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/calendar" component={Calendar} />
-        <Route exact path="/signout" component={SignOut} />
+        <Route path="/signout" component={SignOut} />
         <Redirect to="/" />
       </Switch>
     );
   } else {
     routes = (
       <Switch>
-        <Route path="/" exact component={Home} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
-        <Redirect to="/" />
+        <Redirect to="/signin" />
       </Switch>
     );
   }

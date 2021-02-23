@@ -12,9 +12,10 @@ export const signUp = (data) => (dispatch, getState) => {
       dispatch({ type: actions.AUTH_SUCCESS });
     })
     .catch((err) => {
-      dispatch({ type: actions.AUTH_FAIL, payload: 'The email address is already in use by another account' });
+      console.log(err)
+      dispatch({ type: actions.AUTH_FAIL, payload: err.message });
     })
-    .then((res) => {
+    .then(() => {
       dispatch({ type: actions.AUTH_END });
     });
 };
@@ -23,11 +24,10 @@ export const signOut = () => (dispatch, getState) => {
   axios.get('http://localhost:3000/api/auth/signout', {
     withCredentials: true,
   })
-    .then((res) => {
-      dispatch({ type: actions.AUTH_SUCCESS });
+    .then(() => {
+      dispatch({ type: actions.CLEAN_UP });
     })
-    .catch((err) => {
-      dispatch({ type: actions.AUTH_FAIL, payload: 'The email address is already in use by another account' });
+    .catch(() => {
     });
 };
 
@@ -37,13 +37,13 @@ export const signIn = data => (dispatch, getState) => {
     email: data.email,
     password: data.password,
   })
-    .then((res) => {
+    .then(() => {
       dispatch({ type: actions.AUTH_SUCCESS });
     })
-    .catch((err) => {
+    .catch(() => {
       dispatch({ type: actions.AUTH_FAIL, payload: 'Invalid email and/or password' });
     })
-    .then((res) => {
+    .then(() => {
       dispatch({ type: actions.AUTH_END });
     });
 };

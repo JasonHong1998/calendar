@@ -1,25 +1,54 @@
+require('custom-env').env();
 const express = require('express');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const fs = require('fs');
 const helmet = require('helmet');
-const hpp = require('hpp');
+const https = require('https');
 const morgan = require('morgan');
+const passport = require('passport');
 const path = require('path');
-require('custom-env').env();
-const authorize = require('./middleware/authorize.js');
-const authRoute = require('./routes/auth.js');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const Redis = require('ioredis');
+
+// routes
+const accountRoute = require('./routes/account.js');
 const eventsRoute = require('./routes/events.js');
 const todoRoute = require('./routes/todo.js');
+require('./middleware/auth.js');
 
+// https credentials
+const privateKey = fs.readFileSync('./server.key', 'utf8');
+const certificate = fs.readFileSync('./server.crt', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
 const app = express();
-const port = process.env.NODE_PORT;
+const port = process.env.HTTPS_PORT || 3443;
+
+const client = new Redis();
+const store = new RedisStore({ client });
+
+app.use(
+  session({
+    store,
+    name: 'sid',
+    saveUninitialized: false,
+    resave: false,
+    secret: 'quiet, pal! it\'s a secret!',
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 2,
+      sameSite: true,
+      secure: process.env.NODE_ENV === 'production',
+    },
+  }),
+);
 
 // read the bodies of the incoming JSON object
 app.use(express.json());
 app.use(express.urlencoded());
 
-// parse cookeis passed by the browser
+// parse cookies passed by the browser
 app.use(cookieParser());
 
 // decrease the size of the response body and hence increase the speed of a web app
@@ -31,20 +60,15 @@ app.use(cors());
 // set security-related HTTP response headers
 app.use(helmet());
 
-// selects the last parameter value to prevent HTTP parameter pollution
-app.use(hpp());
-
 // log HTTP requests and errors
 app.use(morgan('dev'));
 
 // serve up static files in dist folder
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.use(['/api/auth/verify', /events/, /todos/], authorize);
-
-app.use('/api/auth', authRoute);
-app.use('/api/todos', eventsRoute);
-app.use('/api/events', todoRoute);
+app.use('/api/auth', accountRoute);
+app.use('/api/todos', passport.authenticate('jwt', { session: false }), eventsRoute);
+app.use('/api/events', passport.authenticate('jwt', { session: false }), todoRoute);
 
 // Invalid endpoint error handler
 app.use((req, res, next) => {
@@ -55,12 +79,12 @@ app.use((req, res, next) => {
 
 // Custom error handler
 app.use((err, req, res, next) => {
-  res.status(err.status || 500).send({
-    error: {
-      status: err.status || 500,
-      message: err.message || 'Internal Server Error',
-    },
-  });
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
-app.listen(port);
+https.createServer(credentials, app).listen(port);
